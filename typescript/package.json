@@ -1,0 +1,31 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "main": "./src/main/index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "rm -rf ./dist && tsc -p tsconfig.build.json",
+    "start": "ts-node -r tsconfig-paths/register ./src/main/index.ts",
+    "lint": "eslint .",
+    "lint:fix": "yarn run lint -- --fix",
+    "test": "jest --passWithNoTests --no-cache --runInBand",
+    "test:watch": "yarn run test -- --watch",
+    "test:staged": "yarn run test -- --findRelatedTests",
+    "test:coverage": "yarn run test -- --coverage"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.2",
+    "eslint": "^9.17.0",
+    "eslint-plugin-import": "^2.31.0",
+    "jest": "^29.7.0",
+    "jest-environment-node": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.2"
+  }
+}
