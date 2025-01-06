@@ -1,27 +1,44 @@
 {
   "compilerOptions": {
-    "target": "es2022",
-    "rootDir": ".",
-    "outDir": "./dist",
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "strict": true,
+    "target": "es2021",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "resolveJsonModule": true,
     "baseUrl": ".",
+    "outDir": "./build",
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "types": [
+      "node",
+      "jest"
+    ],
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths"
+      },
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
+      }
+    ],
     "paths": {
-      "@/src/*": [
-        "./src/*"
-      ],
-      "@/test/*": [
+      "@/*": [
+        "./src/*",
         "./test/*"
-      ],
+      ]
     }
   },
   "include": [
-    "./src",
-    "./test"
+    "./*.ts",
+    "./src/**/*.ts",
+    "./test/**/*.ts",
+    "./types/**/*.d.ts"
+  ],
+  "exclude": [
+    "build",
+    "dist",
+    "node_modules",
+    "tsconfig.json"
   ]
 }

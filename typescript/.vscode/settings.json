@@ -1,3 +1,22 @@
 {
-    "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "files.eol": "\n",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json"
+  ],
+  "eslint.run": "onSave",
+  "files.exclude": {
+    "**/coverage": false,
+    "**/node_modules": true
+  }
 }
