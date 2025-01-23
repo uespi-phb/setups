@@ -7,6 +7,7 @@ code --install-extension ms-vscode.vscode-typescript-next
 code --install-extension yzhang.markdown-all-in-one
 code --install-extension natqe.reload
 code --install-extension vscode-icons-team.vscode-icons
+code --install-extension esbenp.prettier-vscode
 code --install-extension dbaeumer.vscode-eslint
 ```
 
@@ -16,16 +17,22 @@ code --install-extension dbaeumer.vscode-eslint
 
 ```json
 {
+{
   "name": "typescript",
   "version": "1.0.0",
   "description": "Node, Typescript, Jest, ESLint Template Project",
   "main": "src/main.js",
   "scripts": {
-    "dev": "nodemon -r tsconfig-paths/register --exec ts-node ./src/main.ts --files",
+    "dev": "ts-node -r tsconfig-paths/register ./src/main.ts --files",
     "start": "node ./build/src/index.js",
-    "build": "tsc && tsc-alias",
-    "lint": "eslint ./src/**/*.ts --fix",
-    "format": "prettier --write ./**/*.{ts,json}"
+    "build": "rm -rf ./build && tsc && tsc-alias",
+    "lint": "eslint .",
+    "lint:clear": "rm -f .eslintcache",
+    "lint:fix": "yarn run lint --fix",
+    "test": "jest --passWithNoTests --no-cache --runInBand",
+    "test:watch": "yarn run test --watch",
+    "test:staged": "lint-staged",
+    "test:coverage": "yarn run test --config jest.coverage.config.ts --coverage"
   },
   "keywords": [],
   "author": "Eyder Rios",
@@ -45,6 +52,7 @@ code --install-extension dbaeumer.vscode-eslint
     "eslint": "^9",
     "eslint-config-love": "^113",
     "eslint-config-prettier": "^9",
+    "eslint-import-resolver-typescript": "^3",
     "eslint-plugin-import": "^2",
     "eslint-plugin-jest": "^28",
     "eslint-plugin-markdown": "^5",
@@ -52,10 +60,13 @@ code --install-extension dbaeumer.vscode-eslint
     "eslint-plugin-prettier": "^5",
     "eslint-plugin-promise": "^7",
     "jest": "^29",
+    "jest-mock-extended": "^4",
+    "lint-staged": "^15",
     "prettier": "^3",
     "ts-jest": "^29",
     "ts-node": "^10",
     "ts-node-dev": "^2",
+    "tsc-alias": "^1",
     "tsconfig-paths": "^4",
     "typescript": "^5",
     "typescript-transform-paths": "^3"

@@ -36,9 +36,8 @@
     "./types/**/*.d.ts"
   ],
   "exclude": [
-    "build",
-    "dist",
-    "node_modules",
-    "tsconfig.json"
+    "./build",
+    "./node_modules",
+    "./tsconfig.json"
   ]
 }

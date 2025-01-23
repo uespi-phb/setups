@@ -57,15 +57,15 @@ export default [
         },
       ],
 
-      // Regras gerais de boas práticas
+      // General Rules
       // 'no-console': 'warn',
       'no-debugger': 'error',
 
-      // Regras para TypeScript
+      // TypeScript Rules
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
 
-      // Regras para Imports
+      // Imports Rules
       'import/order': [
         'error',
         {
@@ -86,14 +86,14 @@ export default [
         },
       ],
 
-      // Regras do Jest
+      // Jest Rules
       'jest/no-disabled-tests': 'warn',
       'jest/no-focused-tests': 'error',
       'jest/no-identical-title': 'error',
       'jest/prefer-to-have-length': 'warn',
       'jest/valid-expect': 'error',
 
-      // Regras para Promises
+      // Promises Rules
       'promise/always-return': 'warn',
       'promise/no-return-wrap': 'error',
       'promise/catch-or-return': 'error',
