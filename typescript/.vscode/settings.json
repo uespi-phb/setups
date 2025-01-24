@@ -2,11 +2,12 @@
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "editor.detectIndentation": false,
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always"
   },
-  "files.eol": "\n",
+  "eslint.format.enable": true,
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -14,7 +15,9 @@
     "typescriptreact",
     "json"
   ],
-  "eslint.run": "onSave",
+  "eslint.run": "onType",
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "files.eol": "\n",
   "files.exclude": {
     "**/coverage": false,
     "**/node_modules": true
