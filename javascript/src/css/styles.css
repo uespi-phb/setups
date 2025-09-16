@@ -1,0 +1,18 @@
+body {
+  font-family: sans-serif;
+  background-color: #f5f5f5;
+  text-align: center;
+  padding: 2rem;
+}
+
+#main-title {
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+#toggle-color-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
