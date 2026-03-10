@@ -1,43 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es2021",
+    "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "resolveJsonModule": true,
     "baseUrl": ".",
+    "paths": {
+      "@features/*": ["src/features/*"],
+      "@shared/*": ["src/shared/*"]
+    },
     "outDir": "./build",
     "sourceMap": true,
-    "strict": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
-    "types": [
-      "node",
-      "jest"
-    ],
-    "plugins": [
-      {
-        "transform": "typescript-transform-paths"
-      },
-      {
-        "transform": "typescript-transform-paths",
-        "afterDeclarations": true
-      }
-    ],
-    "paths": {
-      "@/*": [
-        "./src/*",
-        "./test/*"
-      ]
-    }
+
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    "types": ["node"]
   },
-  "include": [
-    "./*.ts",
-    "./src/**/*.ts",
-    "./test/**/*.ts",
-    "./types/**/*.d.ts"
-  ],
-  "exclude": [
-    "./build",
-    "./node_modules",
-    "./tsconfig.json"
-  ]
+  "include": ["src/**/*.ts", "types/**/*.d.ts"],
+  "exclude": ["build", "coverage", "node_modules", "test"]
 }

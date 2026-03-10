@@ -97,33 +97,33 @@ DB_PASSWORD=mies
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      NODE_ENV: "dev" | "test" | "prod";
+      NODE_ENV: 'dev' | 'test' | 'prod'
 
-      API_KEY: string;
+      API_KEY: string
 
-      DB_SCHEMA: string;
-      DB_NAME: string;
-      DB_USER: string;
-      DB_PASSWORD: string;
+      DB_SCHEMA: string
+      DB_NAME: string
+      DB_USER: string
+      DB_PASSWORD: string
     }
   }
 }
 
-export {};
+export {}
 ```
 
 **`src/main.ts`**
 
 ```ts
-import dotenv from "dotenv";
+import dotenv from 'dotenv'
 
 const initApp = () => {
-  dotenv.config();
-};
+  dotenv.config()
+}
 
 const main = () => {
-  initApp();
-};
+  initApp()
+}
 ```
 
 #### 3. Setup Typescript
@@ -174,69 +174,69 @@ module.exports = {
     node: true,
     jest: true,
   },
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2023,
-    sourceType: "module",
-    project: "./tsconfig.json",
+    sourceType: 'module',
+    project: './tsconfig.json',
   },
   extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
   ],
-  plugins: ["@typescript-eslint", "prettier", "markdown", "import"],
+  plugins: ['@typescript-eslint', 'prettier', 'markdown', 'import'],
   rules: {
     // ESLint Rules
-    "no-unused-vars": "warn",
-    "no-console": "warn",
-    "no-debugger": "error",
+    'no-unused-vars': 'warn',
+    'no-console': 'warn',
+    'no-debugger': 'error',
 
     // TypeScript Rules
-    "@typescript-eslint/no-unused-vars": ["error"],
-    "@typescript-eslint/explicit-module-boundary-types": "off",
+    '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
 
     // Prettier Rules
-    "prettier/prettier": [
-      "error",
+    'prettier/prettier': [
+      'error',
       {
         semi: false,
         singleQuote: true,
-        trailingComma: "es5",
+        trailingComma: 'es5',
         printWidth: 120,
         tabWidth: 2,
       },
     ],
-    "import/order": [
-      "error",
+    'import/order': [
+      'error',
       {
-        groups: ["builtin", "external", "internal"],
+        groups: ['builtin', 'external', 'internal'],
         pathGroups: [
           {
-            pattern: "@/**",
-            group: "internal",
-            position: "after",
+            pattern: '@/**',
+            group: 'internal',
+            position: 'after',
           },
         ],
-        pathGroupsExcludedImportTypes: ["builtin"],
+        pathGroupsExcludedImportTypes: ['builtin'],
         alphabetize: {
-          order: "asc",
+          order: 'asc',
           caseInsensitive: true,
         },
-        "newlines-between": "always",
+        'newlines-between': 'always',
       },
     ],
   },
   overrides: [
     {
-      files: ["**/*.md"],
-      processor: "markdown/markdown",
+      files: ['**/*.md'],
+      processor: 'markdown/markdown',
     },
   ],
-  ignorePatterns: ["build", "coverage", "dist", "node_modules"],
-};
+  ignorePatterns: ['build', 'coverage', 'dist', 'node_modules'],
+}
 ```
 
 #### 5. Setup Jest

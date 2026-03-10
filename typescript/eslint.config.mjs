@@ -1,104 +1,172 @@
-import globals from "globals";
-import eslintPluginPrettier from "eslint-plugin-prettier";
-import eslintPluginJest from "eslint-plugin-jest";
-import eslintPluginImport from "eslint-plugin-import";
-import eslintPluginMarkdown from "eslint-plugin-markdown";
-import eslintPluginPromise from "eslint-plugin-promise";
-import eslintPluginN from "eslint-plugin-n";
-import typescriptParser from "@typescript-eslint/parser";
-import eslintPluginTypeScript from "@typescript-eslint/eslint-plugin";
+import js from '@eslint/js'
+import { defineConfig } from 'eslint/config'
+import globals from 'globals'
+import importPlugin from 'eslint-plugin-import'
+import jestPlugin from 'eslint-plugin-jest'
+import nPlugin from 'eslint-plugin-n'
+import promisePlugin from 'eslint-plugin-promise'
+import eslintConfigPrettier from 'eslint-config-prettier'
+import tseslint from 'typescript-eslint'
 
-export default [
+const sharedTypeScriptRules = {
+  '@typescript-eslint/no-unused-vars': [
+    'warn',
+    {
+      argsIgnorePattern: '^_',
+      varsIgnorePattern: '^_',
+      caughtErrorsIgnorePattern: '^_',
+    },
+  ],
+  '@typescript-eslint/consistent-type-imports': [
+    'error',
+    {
+      prefer: 'type-imports',
+      fixStyle: 'inline-type-imports',
+    },
+  ],
+  '@typescript-eslint/no-floating-promises': 'error',
+  '@typescript-eslint/no-misused-promises': 'error',
+  '@typescript-eslint/await-thenable': 'error',
+  'import/no-unresolved': 'error',
+  'import/order': [
+    'error',
+    {
+      groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']],
+      pathGroups: [
+        {
+          pattern: '@features/**',
+          group: 'internal',
+          position: 'after',
+        },
+        {
+          pattern: '@shared/**',
+          group: 'internal',
+          position: 'after',
+        },
+      ],
+      pathGroupsExcludedImportTypes: ['builtin'],
+      alphabetize: {
+        order: 'asc',
+        caseInsensitive: true,
+      },
+      'newlines-between': 'always',
+    },
+  ],
+  'promise/catch-or-return': 'error',
+  'promise/no-return-wrap': 'error',
+  'n/no-missing-import': 'off',
+}
+
+export default defineConfig([
   {
-    ignores: ["build/**", "coverage/**", "node_modules/**"],
+    ignores: ['build/**', 'coverage/**', 'node_modules/**'],
   },
+
+  js.configs.recommended,
+
   {
-    files: ["src/**/*.ts", "test/**/*.ts"],
+    files: ['**/*.{js,mjs,cjs}'],
     languageOptions: {
-      ecmaVersion: 2021,
-      sourceType: "module",
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
+    },
+    plugins: {
+      import: importPlugin,
+      promise: promisePlugin,
+      n: nPlugin,
+    },
+    rules: {
+      'no-debugger': 'error',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'promise/catch-or-return': 'error',
+      'promise/no-return-wrap': 'error',
+      'n/no-missing-import': 'off',
+    },
+  },
+
+  {
+    files: ['src/**/*.ts', 'types/**/*.d.ts'],
+    extends: [...tseslint.configs.recommendedTypeChecked],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
+      parser: tseslint.parser,
+      parserOptions: {
+        project: './tsconfig.json',
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    plugins: {
+      '@typescript-eslint': tseslint.plugin,
+      import: importPlugin,
+      promise: promisePlugin,
+      n: nPlugin,
+    },
+    settings: {
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+          project: './tsconfig.json',
+        },
+      },
+    },
+    rules: {
+      'no-debugger': 'error',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      '@typescript-eslint/no-explicit-any': 'error',
+      ...sharedTypeScriptRules,
+    },
+  },
+
+  {
+    files: ['test/**/*.ts'],
+    extends: [...tseslint.configs.recommendedTypeChecked],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
       globals: {
         ...globals.node,
         ...globals.jest,
       },
-      parser: typescriptParser,
+      parser: tseslint.parser,
       parserOptions: {
-        project: "./tsconfig.json",
+        project: './tsconfig.test.json',
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     plugins: {
-      prettier: eslintPluginPrettier,
-      jest: eslintPluginJest,
-      import: eslintPluginImport,
-      markdown: eslintPluginMarkdown,
-      promise: eslintPluginPromise,
-      eslintn: eslintPluginN,
-      "@typescript-eslint": eslintPluginTypeScript,
-    },
-    rules: {
-      // Regras do Prettier integradas ao ESLint
-      "prettier/prettier": [
-        "error",
-        {
-          semi: false,
-          tabWidth: 2,
-          printWidth: 120,
-          singleQuote: true,
-          bracketSpacing: true,
-          trailingComma: "all",
-          arrowParens: "always",
-        },
-      ],
-
-      // Regras gerais de boas práticas
-      // 'no-console': 'warn',
-      "no-debugger": "error",
-
-      // Regras para TypeScript
-      "@typescript-eslint/no-unused-vars": "warn",
-      "@typescript-eslint/no-explicit-any": "error",
-      "@typescript-eslint/explicit-module-boundary-types": "off",
-
-      // Regras para Imports
-      "import/order": [
-        "error",
-        {
-          groups: ["builtin", "external", "internal"],
-          pathGroups: [
-            {
-              pattern: "@/**",
-              group: "internal",
-              position: "after",
-            },
-          ],
-          pathGroupsExcludedImportTypes: ["builtin"],
-          alphabetize: {
-            order: "asc",
-            caseInsensitive: true,
-          },
-          "newlines-between": "always",
-        },
-      ],
-
-      // Regras do Jest
-      "jest/no-disabled-tests": "warn",
-      "jest/no-focused-tests": "error",
-      "jest/no-identical-title": "error",
-      "jest/prefer-to-have-length": "warn",
-      "jest/valid-expect": "error",
-
-      // Regras para Promises
-      "promise/always-return": "warn",
-      "promise/no-return-wrap": "error",
-      "promise/catch-or-return": "error",
+      '@typescript-eslint': tseslint.plugin,
+      import: importPlugin,
+      jest: jestPlugin,
+      promise: promisePlugin,
+      n: nPlugin,
     },
     settings: {
-      "import/resolver": {
+      'import/resolver': {
         typescript: {
           alwaysTryTypes: true,
-          project: "./tsconfig.json",
+          project: './tsconfig.test.json',
         },
       },
     },
+    rules: {
+      'no-debugger': 'error',
+      'no-console': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      ...sharedTypeScriptRules,
+      'jest/no-disabled-tests': 'warn',
+      'jest/no-focused-tests': 'error',
+      'jest/no-identical-title': 'error',
+      'jest/valid-expect': 'error',
+      'jest/prefer-to-have-length': 'warn',
+    },
   },
-];
+
+  eslintConfigPrettier,
+])
